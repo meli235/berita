@@ -1,0 +1,227 @@
+<div
+  class="container mx-auto my-14 grid grid-cols-1 lg:grid-cols-3 gap-10 px-6"
+>
+  <div class="lg:col-span-2">
+    <!-- Breadcrumb -->
+    <nav class="text-gray-500 text-sm mb-4 flex items-center space-x-2">
+      <a routerLink="/" class="hover:underline">Beranda</a>
+      <span>/</span>
+      <a routerLink="/{{ category }}" class="hover:underline capitalize">{{
+        category
+      }}</a>
+      <span>/</span>
+      <span class="text-black">Detail</span>
+    </nav>
+
+    <!-- Section detail post -->
+    <div *ngIf="item">
+      <h1 class="text-2xl font-bold mb-4">{{ item.post.title }}</h1>
+      <div class="flex space-x-2 text-sm text-gray-500 mb-6">
+        <span class="text-blue-600">{{ category }}</span>
+        <span>•</span>
+        <span>{{ item.post.pubDate | date : "dd MMM yyyy" }}</span>
+      </div>
+      <img
+        *ngIf="item.post.thumbnail"
+        [src]="item.post.thumbnail"
+        alt="{{ item.post.title }}"
+        class="rounded-lg mb-4 w-full"
+      />
+      <p class="text-gray-700 leading-relaxed text-justify mb-2">
+        Jakarta, CNN Indonesia --Ketua Badan Tim Nasional (BTN) PSSI Sumardji
+        merespons peluang Timnas Indonesia pindah dari Stadion Utama Gelora Bung
+        Karno (GBK) apabila lolos ke putaran ketiga Kualifikasi Piala Dunia
+        2026. Akhir-akhir ini rumput lapangan Stadion GBK yang jadi markas
+        Indonesia dalam babak kedua Kualifikasi Piala Dunia 2026 kerap
+        bermasalah. Pada pertandingan kandang pertama melawan Vietnam, Maret
+        lalu, rumput GBK rusak parah. PPKGBK selalu pengelola pun mendapat
+        kritik deras.
+      </p>
+      <p class="text-gray-700 leading-relaxed text-justify mb-2">
+        Acara-acara di luar sepak bola itu kerap membuat kondisi rumput tidak
+        sehat dan tidak terlihat bagus saat pertandingan, khususnya laga Timnas
+        Indonesia. Sampai saat melawan Irak, rumput GBK tidak terlihat sempurna
+        meskipun kondisinya lebih bagus dibanding lawan Vietnam. Opsi pindah
+        kandang pun muncul.
+      </p>
+      <p class="text-gray-700 leading-relaxed text-justify">
+        "Nanti kami akan sampaikan [rencana pindah dari GBK]," ujar Sumardji
+        saat ditanya kemungkinan menggunakan stadion lain di putaran ketiga
+        kualifikasi. Sumardji tidak membantah kondisi rumput GBK yang masih
+        kurang bagus dalam duel Indonesia vs Irak. PSSI pun berharap PPKGBK bisa
+        lebih memperhatikan kondisi rumput untuk pertandingan Skuad Garuda.
+        "Kami sampai saat ini sudah telepon dengan pengelola GBK karena kondisi
+        rumput kemarin kurang bagus, kami memohon ke pihak GBK supaya
+        betul-betul disiapkan dan diperhatikan kondisi rumput," tutur Sumardji.
+        "Kalau dilihat-lihat sepertinya kondisi rumput GBK kayaknya stres itu,
+        sehingga dengan kondisi itu akan memengaruhi, tadi saya telepon supaya
+        diperhatikan," kata Sumardji menambahkan.
+      </p>
+    </div>
+
+    <!-- Komentar -->
+    <div class="flex items-center mb-4 mt-16">
+      <div class="w-1 h-5 bg-[#0090FF] mr-2"></div>
+      <h2 class="text-lg font-bold">Komentar</h2>
+    </div>
+
+    <div class="flex mb-4">
+      <img
+        src="https://randomuser.me/api/portraits/men/99.jpg"
+        class="w-10 h-10 rounded-full mr-3"
+      />
+      <div class="flex-1">
+        <textarea
+          [(ngModel)]="newComment"
+          maxlength="50"
+          placeholder="Apa yang ingin anda tanyakan?"
+          class="w-full border border-[#E0E0E0] rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="5"
+        ></textarea>
+        <div class="text-right text-xs text-gray-500">
+          {{ newComment.length }}/50
+        </div>
+        <button
+          (click)="submitComment()"
+          class="bg-[#0090FF] text-white px-4 py-2 rounded hover:bg-blue-600 mb-4"
+        >
+          Kirim
+        </button>
+      </div>
+    </div>
+
+    <div
+      *ngFor="
+        let comment of comments.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        )
+      "
+      class="mb-4 border-t pt-4"
+    >
+      <div class="flex">
+        <img [src]="comment.avatar" class="w-10 h-10 rounded-full mr-3" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm">{{ comment.name }}</div>
+          <div class="text-xs text-gray-500">{{ comment.date }}</div>
+          <p class="mt-1 text-gray-700 text-sm">{{ comment.text }}</p>
+          <a class="text-blue-500 text-xs cursor-pointer mt-1 inline-block"
+            >Balas</a
+          >
+
+          <div *ngFor="let reply of comment.replies" class="flex mt-3">
+            <img [src]="reply.avatar" class="w-8 h-8 rounded-full mr-2" />
+            <div class="flex-1">
+              <div class="font-semibold text-xs">{{ reply.name }}</div>
+              <div class="text-xs text-gray-500">{{ reply.date }}</div>
+              <p class="text-gray-700 text-sm">{{ reply.text }}</p>
+              <a class="text-blue-500 text-xs cursor-pointer mt-1 inline-block"
+                >Balas</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-sm mt-4">
+      <div>
+        Item per page
+        <select
+          [(ngModel)]="itemsPerPage"
+          class="border border-[#E0E0E0] rounded px-2 py-1 text-sm ml-2"
+        >
+          <option [value]="5">5</option>
+          <option [value]="10">10</option>
+          <option [value]="20">20</option>
+        </select>
+        of {{ comments.length }}
+      </div>
+      <div class="flex items-center space-x-2">
+        <button
+          (click)="changePage(currentPage - 1)"
+          [disabled]="currentPage === 1"
+          class="px-2 py-1 rounded"
+        >
+          &lt;
+        </button>
+        <span>{{ currentPage }}</span>
+        <button
+          (click)="changePage(currentPage + 1)"
+          [disabled]="currentPage * itemsPerPage >= comments.length"
+          class="px-2 py-1 rounded"
+        >
+          &gt;
+        </button>
+      </div>
+    </div>
+
+    <!-- Judul dengan garis biru -->
+    <div class="flex items-center mb-4 mt-16">
+      <div class="w-1 h-5 bg-[#0090FF] mr-2"></div>
+      <h2 class="text-lg font-bold">Berita Terkait</h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div *ngFor="let post of terkaitNews" class="flex flex-col">
+        <img
+          [src]="post.thumbnail"
+          alt="Thumbnail"
+          class="w-full h-[120px] md:h-[140px] object-cover rounded-[8px] mb-2"
+        />
+        <a
+          class="text-sm font-semibold text-[#333333] mb-1 line-clamp-2 cursor-pointer"
+          [routerLink]="['/detail', category, generateSlug(post.title)]"
+        >
+          {{ post.title }}
+        </a>
+        <div class="flex items-center text-xs text-gray-500 space-x-2">
+          <span class="text-[#0090FF]">{{ category }}</span>
+          <span>•</span>
+          <span class="text-[#526071]">{{
+            post.pubDate | date : "dd MMM yyyy"
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:col-span-1">
+    <!-- Section berita populer -->
+    <h2 class="text-lg font-bold border-l-4 border-[#0090FF] pl-2 mb-6">
+      Berita Terpopuler
+    </h2>
+    <div
+      *ngFor="let item of popularNews; let i = index"
+      class="flex mb-6 space-x-2"
+    >
+      <div class="relative">
+        <span
+          class="absolute -top-2 -left-2 bg-gray-800 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+        >
+          {{ i + 1 }}
+        </span>
+        <img
+          [src]="item.thumbnail"
+          alt="{{ item.title }}"
+          class="max-w-20 h-14 object-cover rounded"
+        />
+      </div>
+      <div>
+        <a
+          [routerLink]="['/detail', 'otomotif', generateSlug(item.title)]"
+          class="text-sm font-semibold text-[#333333] line-clamp-2 hover:underline"
+        >
+          {{ item.title }}
+        </a>
+        <div class="flex items-center text-xs text-gray-500 mt-1 space-x-1">
+          <span class="text-[#0090FF]">{{ "Otomotif" }}</span>
+          <span>•</span>
+          <span class="text-[#526071]">{{
+            item.pubDate | date : "dd MMM yyyy"
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

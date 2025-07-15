@@ -1,0 +1,77 @@
+<footer class="bg-[#2C3C4D] text-gray-200 py-10">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-6">
+    <!-- Logo & social -->
+    <div>
+      <div class="flex items-center mb-4">
+        <img src="assets/logo-white.svg" alt="Logo" class="h-10 w-10 mr-2" />
+        <span class="font-semibold text-xl">Berita Kini</span>
+      </div>
+      <p class="text-sm mb-4">© 2023 Berita Kini. All Rights Reserved.</p>
+      <div>
+        <p class="mb-2">Ikuti Kami</p>
+        <div class="flex space-x-3">
+          <a href="#" class="bg-white p-2 rounded">
+            <img
+              src="assets/icon/bi_youtube.svg"
+              alt="YouTube"
+              class="h-5 w-5"
+            />
+          </a>
+          <a href="#" class="bg-white p-2 rounded">
+            <img
+              src="assets/icon/bi_instagram.svg"
+              alt="Instagram"
+              class="h-5 w-5"
+            />
+          </a>
+          <a href="#" class="bg-white p-2 rounded">
+            <img
+              src="assets/icon/bi_facebook.svg"
+              alt="Facebook"
+              class="h-5 w-5"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Telusuri -->
+    <div>
+      <h3 class="font-semibold mb-3">Telusuri</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a [routerLink]="['']">Beranda</a></li>
+        <li><a [routerLink]="['/kategori/terbaru']">Terbaru</a></li>
+        <li><a [routerLink]="['/kategori/kalam']">Kalam</a></li>
+        <li><a [routerLink]="['/kategori/lifestyle']">Gaya Hidup</a></li>
+        <li><a [routerLink]="['/kategori/sports']">Olahraga</a></li>
+        <li><a [routerLink]="['/kategori/nasional']">Nasional</a></li>
+        <li><a [routerLink]="['/kategori/international']">Internasional</a></li>
+      </ul>
+    </div>
+
+    <!-- Bantuan -->
+    <div>
+      <h3 class="font-semibold mb-3">Bantuan</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#">Kontak Kami</a></li>
+        <li><a href="#">Laporan Pembajakan</a></li>
+        <li><a href="#">Kebijakan</a></li>
+      </ul>
+    </div>
+
+    <!-- Berlangganan -->
+    <div>
+      <h3 class="font-semibold mb-3">Berlangganan Berita Terbaru</h3>
+      <div class="flex mt-2">
+        <input
+          type="email"
+          placeholder="Masukan email"
+          class="flex-1 rounded-l px-3 py-2 text-black focus:outline-none bg-white placeholder:text-[#BDBDBD]"
+        />
+        <button class="bg-[#0090FF] px-3 py-2 rounded-r">
+          <img src="assets/icon/bi_send-fill.svg" alt="Send" class="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>

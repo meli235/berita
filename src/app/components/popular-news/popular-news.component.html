@@ -1,0 +1,54 @@
+<div class="container mx-auto my-18 p-6">
+  <!-- Judul dengan garis biru -->
+  <div class="flex items-center mb-10">
+    <div class="w-1 h-5 bg-[#0090FF] mr-2"></div>
+    <h2 class="text-lg font-bold">Berita Terpopuler</h2>
+  </div>
+
+  <!-- List berita -->
+  <div class="flex flex-col md:flex-row gap-10">
+    <div
+      *ngFor="let post of popularPosts; let i = index"
+      class="flex items-start gap-3 border-l md:border-l-0 md:border-r border-gray-200 pl-3 md:pl-0 md:pr-3"
+      [ngClass]="{
+        'border-l md:border-l-0 md:border-r border-gray-200 ':
+          i !== popularPosts.length - 1,
+        '': i === popularPosts.length - 1
+      }"
+    >
+      <!-- Nomor bulat -->
+      <div class="relative">
+        <div
+          class="absolute -top-2 -left-2 z-10 w-6 h-6 rounded-full bg-gray-800 text-white flex items-center justify-center text-xs"
+        >
+          {{ i + 1 }}
+        </div>
+
+        <!-- Gambar -->
+        <img
+          [src]="post.thumbnail"
+          alt="Thumbnail"
+          class="max-w-[100px] h-[70px] md:max-w-[120px] md:h-[80px] rounded-[8px] object-cover flex-shrink-0"
+        />
+      </div>
+
+      <!-- Teks -->
+      <div class="flex flex-col justify-between h-full">
+        <a
+          class="text-sm font-medium mb-1 line-clamp-2 text-[#333333] cursor-pointer"
+          [routerLink]="['/detail', 'otomotif', generateSlug(post.title)]"
+          routerLinkActive="router-link-active"
+        >
+          {{ post.title }}
+        </a>
+        <div class="flex items-center text-xs text-gray-500 space-x-2">
+          <span class="text-[#0090FF]">{{ "Otomotif" }}</span>
+          <span>•</span>
+          <span class="text-[#526071]">{{
+            post.pubDate | date : "dd MMM yyyy"
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="container mx-auto my-18 overflow-hidden">
+  <div class="px-6 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10">
+    <div class="flex flex-col justify-center">
+      <p class="text-xs text-[#526071] mb-2">Headline</p>
+      <h2 class="text-2xl md:text-3xl font-bold mb-3 text-[#333333]">
+        {{ headline?.title }}
+      </h2>
+      <p class="text-[#4F4F4F] mb-3">{{ headline?.description }}</p>
+      <div class="text-[#526071] text-sm mb-4 flex items-center space-x-2">
+        <span>📅</span>
+        <span>{{ headline?.pubDate | date : "dd MMMM yyyy" }}</span>
+      </div>
+      <a
+        [href]="headline?.link"
+        target="_blank"
+        class="text-[#0090FF] text-sm hover:underline flex items-center space-x-1"
+      >
+        <span>Baca Selengkapnya</span>
+        <span>↗</span>
+      </a>
+    </div>
+    <div class="flex justify-end">
+      <img
+        [src]="headline?.thumbnail"
+        alt="Headline image"
+        class="w-[637px] h-[417px] rounded-[20px] object-cover"
+      />
+    </div>
+  </div>
+  <!-- Pagination controls -->
+  <div
+    class="px-6 flex justify-center items-center space-x-4 text-gray-500 mt-10"
+  >
+    <button
+      (click)="prev()"
+      [disabled]="currentIndex === 0"
+      class="disabled:opacity-50 cursor-pointer disabled:cursor-default"
+    >
+      ‹
+    </button>
+    <span>{{ currentIndex + 1 }} dari {{ headlines.length }}</span>
+    <button
+      (click)="next()"
+      [disabled]="currentIndex === headlines.length - 1"
+      class="disabled:opacity-50 cursor-pointer disabled:cursor-default"
+    >
+      ›
+    </button>
+  </div>
+</div>
